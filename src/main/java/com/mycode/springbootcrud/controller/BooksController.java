@@ -1,0 +1,29 @@
+package com.mycode.springbootcrud.controller;
+
+import com.mycode.springbootcrud.model.Books;
+import com.mycode.springbootcrud.service.BooksService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+public class BooksController {
+
+    @Autowired
+    BooksService booksService;
+
+    @GetMapping("/books")
+    public List<Books> getAllBooks() {
+        return booksService.getAllBooks();
+    }
+
+    @PostMapping("/books")
+    public int saveBook(@RequestBody Books books) {
+        booksService.saveOrUpdate(books);
+        return books.getBookid();
+    }
+}
