@@ -3,10 +3,7 @@ package com.mycode.springbootcrud.controller;
 import com.mycode.springbootcrud.model.Books;
 import com.mycode.springbootcrud.service.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,4 +23,21 @@ public class BooksController {
         booksService.saveOrUpdate(books);
         return books.getBookid();
     }
+
+    @GetMapping("/books/{bookid}")
+    public Books getBook(@PathVariable("bookid") int bookid) {
+        return booksService.getBooksById(bookid);
+    }
+
+    @PutMapping("/books")
+    public Books update(@RequestBody Books books) {
+        booksService.saveOrUpdate(books);
+        return books;
+    }
+
+    @DeleteMapping("/books/{bookid}")
+    public void deleteBook(@PathVariable("bookid") int bookid) {
+        booksService.delete(bookid);
+    }
+
 }
